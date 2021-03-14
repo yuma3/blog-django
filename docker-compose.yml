@@ -3,12 +3,17 @@ services:
   db:
     image: mysql:5.7
     container_name: 'db'
-    environment:                  
+    restart: always
+    environment:                  # 4
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: django-db
       MYSQL_USER: django
       MYSQL_PASSWORD: django
       TZ: 'Asia/Tokyo'
+    volumes: 
+      - ./mysql:/var/lib/mysql
+    ports:
+      - 3306:3306
     command: mysqld --character-set-server=utf8 --collation-server=utf8_unicode_ci
   
   web:
@@ -18,14 +23,18 @@ services:
     ports:
       - "8000:8000"
     container_name: 'web'
-    depends_on:               
+    depends_on:               # 10
       - db
-    links:
+     links:
       - selenium
     command: python works/manage.py runserver 0.0.0.0:8000
-
+  
   selenium:
     image: selenium/standalone-chrome:4.0.0-beta-1-prerelease-20201208
     container_name: 'selenium'
-    ports:
-      - 4444:4444
+    ports: 
+      - '4444:4444'
+    volumes:
+      - '/dev/shm:/dev/shm'
+
+    # docker-compose run web django-admin startproject <Project Name> .

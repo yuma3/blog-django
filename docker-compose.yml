@@ -25,8 +25,16 @@ services:
     container_name: 'web'
     depends_on:               # 10
       - db
-    #  links:
-    #   - db
+     links:
+      - selenium
     command: python works/manage.py runserver 0.0.0.0:8000
+  
+  selenium:
+    image: selenium/standalone-chrome:4.0.0-beta-1-prerelease-20201208
+    container_name: 'selenium'
+    ports: 
+      - '4444:4444'
+    volumes:
+      - '/dev/shm:/dev/shm'
 
     # docker-compose run web django-admin startproject <Project Name> .

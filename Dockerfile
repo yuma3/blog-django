@@ -8,12 +8,12 @@ RUN apt-get update && apt-get install -y \
     vim \ 
     git 
 
-WORKDIR /code
+WORKDIR /src
 
-COPY requirements.txt /code/
+COPY requirements.txt /src/
 
 RUN pip install --upgrade pip && pip install -r requirements.txt
 
-COPY . /code/
+COPY . /src/
 
 

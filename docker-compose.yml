@@ -3,7 +3,7 @@ services:
   db:
     image: mysql:5.7
     container_name: 'db'
-    environment:                  # 4
+    environment:                  
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: django-db
       MYSQL_USER: django
@@ -14,20 +14,18 @@ services:
   web:
     build: .
     volumes: 
-      - .:/code
+      - .:/src
     ports:
       - "8000:8000"
     container_name: 'web'
-    depends_on:               # 10
+    depends_on:               
       - db
     links:
       - selenium
-    command: python ypro/manage.py runserver 0.0.0.0:8000
+    command: python works/manage.py runserver 0.0.0.0:8000
 
   selenium:
-    # image: selenium/standalone-chrome:4.0.0-beta-1-prerelease-20201208
-    image: selenium/standalone-chrome-debug
-    container_name: 'django_ylenium'
+    image: selenium/standalone-chrome:4.0.0-beta-1-prerelease-20201208
+    container_name: 'selenium'
     ports:
       - 4444:4444
-      - 5900:5900

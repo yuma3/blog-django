@@ -1,5 +1,11 @@
 Django==3.1   
 mysqlclient  
 Pillow
+selenium
+
+asgiref==3.2.7
+pytz==2020.1
+sqlparse==0.3.1
+uwsgi==2.0.18
 
 
